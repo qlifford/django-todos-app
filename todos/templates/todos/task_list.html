@@ -6,13 +6,18 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Todos List</h1>
+    <h1>Todos List</h1> 
+    <a class="btn btn-success" href="{% url 'todos-create' %}">Create Task</a>
     {% for todo in todos %}
     <ul>
         <li>
             <div class="">
                 {{ todo.title }}
-                <a href="{% url 'task' todo.id %}">More</a>
+                
+    <a href="{% url 'todos-update' todo.id %}" class="btn btn-info">Edit</a>
+    <a href="" class="btn btn-danger">Delete</a>
+                <a href="{% url 'todos-get' todo.id %}">
+                    <br>More</a>
             </div>
         </li>
     </ul>
