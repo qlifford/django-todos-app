@@ -1,6 +1,11 @@
-<h1>Task</h1>
+{% extends 'todos/base.html' %}
 
-<div class="">
-    {{ task.title }}
-    
-</div>
+{% block content %}
+
+    <h1>Task</h1>
+
+    <div class="">
+        {{ task.title }}
+        
+    </div>
+{% endblock %}
