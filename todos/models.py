@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator
 
 # Create your models here.
 class Task(models.Model):
@@ -10,8 +11,11 @@ class Task(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def _str__(self):
-        return self.title
-
     class Meta:
         ordering = ['completed']
+        # paginate_by = 1
+
+
+    def __str__(self):
+        return self.title
+

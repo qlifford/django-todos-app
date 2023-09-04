@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic.list import ListView
+from . import models
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.urls import reverse_lazy
@@ -10,6 +11,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+
 
 
 from .models import Task
@@ -23,7 +26,7 @@ class CustomLoginView(LoginView):
     def get_success_url(self):
         return reverse_lazy('tasks')
 
-class RegisterUser(FormView):
+class RegisterUserView(FormView):
         template_name = 'todos/register.html'
         form_class = UserCreationForm
         # redirect_authenticated_user = True
@@ -42,14 +45,15 @@ class RegisterUser(FormView):
 
 
 
-class TaskList(LoginRequiredMixin, ListView):
-    model = Task
+class TaskListView(LoginRequiredMixin, ListView):
+    model = models.Task
     context_object_name = 'tasks'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['tasks'] = context['tasks'].filter(user=self.request.user)
         context['count'] = context['tasks'].filter(completed=False).count()
+        
 
         search_input = self.request.GET.get('search-area') or ''
         if search_input:
@@ -60,28 +64,28 @@ class TaskList(LoginRequiredMixin, ListView):
         return context
 
 
-class TaskDetail(LoginRequiredMixin, DetailView):
-    model = Task
+class TaskDetailView(LoginRequiredMixin, DetailView):
+    model = models.Task
     context_object_name = 'task'
     template_name = 'todos/task_detail.html'
 
-class TaskCreate(LoginRequiredMixin, CreateView):
-    model = Task
+class TaskCreateView(LoginRequiredMixin, CreateView):
+    model = models.Task
     fields = ['title', 'details', 'completed']
     success_url = reverse_lazy('tasks')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        return super(TaskCreate, self).form_valid(form)
+        return super(TaskCreateView, self).form_valid(form)
 
 
-class TaskUpdate(LoginRequiredMixin, UpdateView):
-    model = Task
+class TaskUpdateView(LoginRequiredMixin, UpdateView):
+    model = models.Task
     fields = ['title', 'details', 'completed']
     success_url = reverse_lazy('tasks')
 
-class TaskDelete(LoginRequiredMixin, DeleteView):
-    model = Task
+class TaskDeleteView(LoginRequiredMixin, DeleteView):
+    model = models.Task
     fields = '__all__'
     context_object_name = 'task'
     success_url = reverse_lazy('tasks')

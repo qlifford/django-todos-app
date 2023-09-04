@@ -1,11 +1,16 @@
-{% extends 'todos/base.html' %}
-
-{% block content %}
-
-    <h1>Task</h1>
-
-    <div class="">
-        {{ task.title }}
-        
+<div class="container">
+    <h1>Completed Task</h1>
+    <div>
+        <a class="button" style="color: red;" href="{% url 'task-delete' task.id %}">Delete</a>
+        <a class="button btn-success" style="color: blue;" href="{% url 'task-update' task.id %}">Update</a>
     </div>
-{% endblock %}
+    <h1>Task: {{task}}</h1>
+
+    <p><strong>Date created: </strong> {{ task.created_at }}</p>
+    <p><strong>Date updated: </strong> {{ task.updated_at }}</p>
+    <div class="container">
+        <p><strong> Procedure: </strong> {{ task.details }}</p>
+
+    </div>
+</div>
+
