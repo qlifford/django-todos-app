@@ -4,6 +4,8 @@ from . import models
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.urls import reverse_lazy
+from django.core.paginator import Paginator
+
 
 from django.contrib.auth.views import LoginView
 
@@ -36,12 +38,12 @@ class RegisterUserView(FormView):
             user = form.save()
             if user is not None:
                 login(self.request, user)
-            return super(RegisterUser, self).form_valid(form)
+            return super(RegisterUserView, self).form_valid(form)
         
         def get(self, *args, **kwargs):
             if self.request.user.is_authenticated:
                 return redirect('tasks')
-            return super(RegisterUser, self).get(*args, **kwargs)
+            return super(RegisterUserView, self).get(*args, **kwargs)
 
 
 
