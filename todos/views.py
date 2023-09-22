@@ -31,7 +31,7 @@ class CustomLoginView(LoginView):
 class RegisterUserView(FormView):
         template_name = 'todos/register.html'
         form_class = UserCreationForm
-        # redirect_authenticated_user = True
+        redirect_authenticated_user = True
         success_url = reverse_lazy('tasks')
 
         def form_valid(self, form):
