@@ -25,14 +25,13 @@
     
     <div class="container justify-content-center py-5">
         <div class="header-bar">
-            <h2 style="color:green; margin: 25;">Completed Task</h2>
             <h2><a href="{% url 'tasks' %}">&#8592;</a></h2>
         </div>
         <div class="mt-4">
             <a class="btn btn-danger"  href="{% url 'task-delete' task.id %}">Delete</a>
             <a class="btn btn-secondary" href="{% url 'task-update' task.id %}">Update</a>
         </div>
-        <h1>Task: {{task}}</h1>
+        <h1>Product: {{task}}</h1>
         
         <p><strong>Date created: </strong> {{ task.created_at }}</p>
         <p><strong>Date updated: </strong> {{ task.updated_at }}</p>
